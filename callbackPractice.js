@@ -26,6 +26,9 @@ and what you should write is the sayHi function that makes the code above work,
 
   //Code Here for first
   
+var first = function(array, callback) {
+  callback(array[0]);
+}
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
@@ -39,7 +42,11 @@ first(names, function(firstName){
 
 
 
-  //Code Here for last
+  //Code Here for 
+  
+var last = function(array, callback) {
+  callback(array[array.length-1]);
+}
 
 last(names, function(lastName){
   console.log('The last name in names is ' + lastName);
@@ -57,6 +64,10 @@ last(names, function(lastName){
 
 
   //Code Here for multiply
+function multiply(num1, num2, callback) {
+  var multiplied = num1 * num2;
+  callback(multiplied);
+}
 
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
@@ -73,6 +84,12 @@ multiply(4, 3, function(answer){
 
 
   //Code Here for contains
+
+function contains(array, testName, callback) {
+  for(var i = 0; i < array.length; i++) {
+    if(array[i] === testName) {callback(true);}
+  } callback(false);
+}
 
 contains(names, 'Colt', function(result){
   if(result === true){
@@ -93,6 +110,33 @@ contains(names, 'Colt', function(result){
 
     //Code Here for uniq
 
+// function uniq(array) {
+//   for(var i = 0; i < array.length; i++) {
+//     var test = array[i];
+//     for(var j = i + 1; j <= array.length; j++) {
+//       if(test === array[j]) {array.splice(j,1);}
+//     }
+//   } return array;
+// }
+
+// function uniq(array,callback) {
+//   var newArray = array.sort();
+//   for(var i = 0; i < newArray.length; i++) {
+//     var test = newArray[i];
+//     for(var j = 0; j <= newArray.length; j++) {
+//       if(test === newArray[j]) {newArray.splice(j,1);}
+//   } callback(newArray);
+// }
+// }
+
+function uniq(array,callback) {
+    var seen = {};
+    var newArray = array.filter(function(item) {
+        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    });
+    callback(newArray);
+}
+
 uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
@@ -107,6 +151,12 @@ uniq(names, function(uniqArr){
 
 
     //Code Here for each
+
+function each(array, callback) {
+  array.forEach(function(element,index) {
+    callback(element, index);
+  })
+}
 
 each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
@@ -123,6 +173,14 @@ each(names, function(item, indice){
 
 
  //code here for getUserById
+
+ function getUserById(objArray, value, callback) {
+    for(var i = 0; i < objArray.length; i++) {
+      if(objArray[i].id === value) {
+        callback(objArray[i])
+      }
+    }
+ }
 
 var users = [
   {
@@ -148,3 +206,5 @@ var users = [
 getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
 });
+
+
